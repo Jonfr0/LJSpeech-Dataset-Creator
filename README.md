@@ -13,9 +13,10 @@ The LJSpeech Dataset Creator is a Python script designed to convert a long audio
 
 ## Requirements
 
-- Python 3.x
-- Download a [Whisper Model](https://huggingface.co/Mozilla/whisperfile/tree/main) as `.llamafile` and put it in the root of the project.
-- Run `pip install -r requirements.txt` to install the dependencies
+- Python version 3.x
+- Download a [Whisper Model](https://huggingface.co/Mozilla/whisperfile/tree/main) as `.llamafile` to handle the audio transcription and put it in the root of the project.
+- Run `pip install -r requirements.txt` to install the dependencies.
+- Install `ffmpeg` in your system to handle the audio file conversion.
 
 ## Installation
 
