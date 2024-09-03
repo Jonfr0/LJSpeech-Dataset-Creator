@@ -1,0 +1,24 @@
+# Ignore .env files
+.env
+.env.*
+
+# Folders
+__pycache__/
+.dist/
+env/
+.pytest_cache/
+dataset/
+
+# Files
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.cursorrules
+execute.md
+whisper-small.llamafile
+
+
+
+
+
