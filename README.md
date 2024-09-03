@@ -1,0 +1,31 @@
+# LJSpeech Dataset Creator
+
+## Overview
+
+The LJSpeech Dataset Creator is a Python script designed to convert a long audio file into an LJSpeech-formatted dataset. This tool segments the audio into shorter clips and generates the necessary metadata for training speech synthesis models.
+
+## Features
+
+- **Automatic Audio Segmentation**: The script divides the input audio into `.wav` files, each ranging between 1 to 15 seconds.
+- **LJSpeech-Compatible**: The output dataset includes a `dataset/wavs` folder with the segmented audio files and a `dataset/metadata.csv` file containing the transcriptions, all formatted according to LJSpeech standards.
+- **Simple Command-Line Interface**: Easily create a dataset by specifying the path to your audio file.
+
+## Requirements
+
+- Python 3.x
+- Download a [Whisper Model](https://huggingface.co/Mozilla/whisperfile/tree/main) as `.llamafile` and put it in the root of the project.
+
+## Installation
+
+Clone the repository and navigate to the project directory:
+
+```bash
+git clone https://github.com/Jonfr0/ljspeech-dataset-creator.git
+cd ljspeech-dataset-creator
+```
+
+### Run the script
+
+```bash
+python ljspeech_dataset_creator.py --audio_path "path/to/your/audio/file.mp3"
+```
