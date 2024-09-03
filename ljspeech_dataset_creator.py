@@ -13,6 +13,7 @@ import math
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Create LJSpeech dataset from audio file")
     parser.add_argument("--audio_path", required=True, help="Path to the input audio file")
+    parser.add_argument("--language", default="es", help="Language for transcription")
     return parser.parse_args()
 
 # Dataset creation
@@ -67,9 +68,9 @@ def slice_audio(audio_path, dataset_dir, start_buffer_ms=250, end_buffer_ms=480,
     return wav_files
 
 # Transcription and text processing
-def transcribe_audio(wav_file):
+def transcribe_audio(wav_file, language):
     try:
-        result = subprocess.run(["./whisper-small.llamafile", "-f", wav_file, "-l", "es"], capture_output=True, text=True, check=True, encoding='utf-8')
+        result = subprocess.run(["./whisper-small.llamafile", "-f", wav_file, "-l", language], capture_output=True, text=True, check=True, encoding='utf-8')
         transcription = clean_transcription(result.stdout.strip())
         return transcription
     except subprocess.CalledProcessError as e:
@@ -87,10 +88,10 @@ def clean_transcription(transcription):
     return cleaned_text
 
 # Metadata creation
-def create_metadata(wav_files, dataset_dir):
+def create_metadata(wav_files, dataset_dir, language):
     metadata = []
     for wav_file in wav_files:
-        transcription = transcribe_audio(wav_file)
+        transcription = transcribe_audio(wav_file, language)
         if transcription:
             cleaned_transcription = clean_text(transcription)
             wav_name = os.path.basename(wav_file)
@@ -115,7 +116,7 @@ def main():
     args = parse_arguments()
     dataset_dir = create_dataset_directory()
     wav_files = slice_audio(args.audio_path, dataset_dir)
-    create_metadata(wav_files, dataset_dir)
+    create_metadata(wav_files, dataset_dir, args.language)
     print(f"Dataset created successfully in {dataset_dir}")
 
 

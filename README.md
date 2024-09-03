@@ -32,8 +32,23 @@ cd ljspeech-dataset-creator
 ### LJSpeech Dataset Creator
 
 ```bash
-python ljspeech_dataset_creator.py --audio_path "path/to/your/audio/file.mp3"
+python ljspeech_dataset_creator.py --audio_path "path/to/your/audio/file.mp3" --language "es"
 ```
+
+#### Language options:
+
+- es: Spanish
+- en: English
+- fr: French
+- de: German
+- it: Italian
+- nl: Dutch
+- pt: Portuguese
+- zh: Chinese
+- ja: Japanese
+- ko: Korean
+- ru: Russian
+- ar: Arabic
 
 ### Metadata Processor
 
