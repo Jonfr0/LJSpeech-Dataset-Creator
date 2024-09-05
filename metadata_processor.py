@@ -30,7 +30,7 @@ def process_batch(rows, client):
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are an expert Spanish writing assistant."},
-            {"role": "user", "content": f"Fix the vocabulary in the following text, keeping the same structure and information. If there are words that are missing letters, add them. If there are words that are misspelled, correct them. If there are numbers or dates in the text, keep them how they are written. Text:\n\n{text}"}
+            {"role": "user", "content": f"Fix the vocabulary in the following text, keeping the same structure and information. If there are words that are missing letters, add them. If there are words that are misspelled, correct them. If there are numbers or dates in the text, keep them how they are written. Just output the metadata, don't add anymore explanation typical of LLMs. Text:\n\n{text}"}
         ]
     )
 
