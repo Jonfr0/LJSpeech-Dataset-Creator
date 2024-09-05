@@ -7,6 +7,7 @@ from pydub.silence import detect_nonsilent
 from num2words import num2words
 import os
 import math
+import time
 
 
 # Argument parsing
@@ -24,12 +25,12 @@ def create_dataset_directory():
     return dataset_dir
 
 # Audio processing
-def slice_audio(audio_path, dataset_dir, start_buffer_ms=250, end_buffer_ms=480, sample_rate=22050):
+def slice_audio(audio_path, dataset_dir, start_buffer_ms=250, end_buffer_ms=475, sample_rate=22050):
     # Load the audio file
     audio = AudioSegment.from_file(audio_path)
 
     # Detect non-silent segments
-    non_silent_ranges = detect_nonsilent(audio, min_silence_len=500, silence_thresh=-40)
+    non_silent_ranges = detect_nonsilent(audio, min_silence_len=550, silence_thresh=-40)
 
     print(f"Non-silent segments detected: {len(non_silent_ranges)}")
 
@@ -111,14 +112,33 @@ def clean_text(text):
     text = re.sub(r'\d+', lambda m: num2words(int(m.group(0)), lang='es'), text)
     return text
 
+# Timer functions
+def format_time(seconds):
+    minutes, seconds = divmod(int(seconds), 60)
+    return f"{minutes:02d}:{seconds:02d}"
+
+def print_elapsed_time(start_time):
+    elapsed = time.time() - start_time
+    print(f"\rTime elapsed: {format_time(elapsed)}", end="", flush=True)
+
 # Main execution
 def main():
+    start_time = time.time()
     args = parse_arguments()
     dataset_dir = create_dataset_directory()
+    
+    print("Slicing audio... 🎧")
     wav_files = slice_audio(args.audio_path, dataset_dir)
+    print_elapsed_time(start_time)
+    
+    print("\nCreating metadata... 📃")
     create_metadata(wav_files, dataset_dir, args.language)
-    print(f"Dataset created successfully in {dataset_dir}")
-
+    
+    print_elapsed_time(start_time)
+    print(f"\nDataset created successfully in {dataset_dir} 🎉")
+    
+    total_time = time.time() - start_time
+    print(f"Total time elapsed: {format_time(total_time)} 🕒")
 
 if __name__ == "__main__":
     main()
